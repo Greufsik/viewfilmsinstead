@@ -1,0 +1,303 @@
+<!DOCTYPE html><html lang="ru"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exevors | Cinema Experience</title>
+    <link href="css/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #1e2024 0%, #17181c 100%);
+            --secondary-gradient: linear-gradient(135deg, #2a2d35 0%, #1e2024 100%);
+            --accent-color: #bb86fc;
+            --text-color: #ffffff;
+            --text-secondary: #9ca3af;
+            --neon-glow: 0 0 10px rgba(187, 134, 252, 0.3);
+        }
+
+        body.light-theme {
+            --primary-gradient: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            --secondary-gradient: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+            --accent-color: #6200ee;
+            --text-color: #1a1a1a;
+            --text-secondary: #4a5568;
+            --neon-glow: 0 0 10px rgba(98, 0, 238, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--primary-gradient);
+            color: var(--text-color);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--accent-color), #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: var(--neon-glow);
+            letter-spacing: 2px;
+        }
+
+        .theme-toggle {
+            background: var(--secondary-gradient);
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 1rem;
+            border-radius: 50%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--neon-glow);
+        }
+
+        .quote-container {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: var(--secondary-gradient);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--accent-color);
+            text-shadow: var(--neon-glow);
+            margin-bottom: 1rem;
+        }
+
+        .video-container {
+            position: relative;
+            background: var(--secondary-gradient);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .video-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+            animation: scanline 2s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        iframe {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .video-controls {
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .video-info {
+            margin-top: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            background: rgba(187, 134, 252, 0.1);
+            border-radius: 20px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .status-indicator .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 1.5s ease infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(187, 134, 252, 0.4);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(187, 134, 252, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(187, 134, 252, 0);
+            }
+        }
+
+        .connection-status {
+            text-align: center;
+            margin-top: 1rem;
+            padding: 0.5rem;
+            border-radius: 8px;
+            background: rgba(187, 134, 252, 0.1);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            .logo {
+                font-size: 2rem;
+            }
+            .quote {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">Exevors</div>
+            <button class="theme-toggle" onclick="toggleTheme()" title="Переключить тему">
+                <i class="bi bi-moon-fill"></i>
+            </button>
+        </header>
+
+        <div class="quote-container">
+            <div class="quote">"В ожидании нового года с Exevors !"</div>
+            <div class="status-indicator">
+                <span class="dot"></span>
+                <span id="viewerCount">4 зрителя онлайн</span>
+            </div>
+        </div>
+
+        <div class="video-container">
+            <iframe id="videoPlayer" src="https://rutube.ru/play/embed/b590e1fc4daf9f25f44f7752d9c60295" frameborder="0" allow="clipboard-write; autoplay" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="">
+            </iframe>
+            <div class="video-info">
+                <span id="currentTime">00:00</span> / <span id="duration">00:00</span>
+            </div>
+            <div class="connection-status" id="connectionStatus" style="background: rgba(46, 213, 115, 0.1); color: rgb(46, 213, 115);">Подключено</div>
+        </div>
+    </div>
+
+    <script>
+        class VideoSync {
+            constructor() {
+                this.socket = null;
+                this.reconnectAttempts = 0;
+                this.MAX_RECONNECT_ATTEMPTS = 5;
+                this.connectionStatus = document.getElementById('connectionStatus');
+                this.initializeWebSocket();
+            }
+
+            initializeWebSocket() {
+                this.socket = new WebSocket(`ws://${window.location.host}/ws`);
+
+                this.socket.onopen = () => {
+                    this.connectionStatus.textContent = 'Подключено';
+                    this.connectionStatus.style.background = 'rgba(46, 213, 115, 0.1)';
+                    this.connectionStatus.style.color = '#2ed573';
+                    this.reconnectAttempts = 0;
+                };
+
+                this.socket.onclose = () => {
+                    this.handleDisconnect();
+                };
+
+                this.socket.onmessage = (event) => {
+                    this.handleMessage(event);
+                };
+            }
+
+            handleDisconnect() {
+                this.connectionStatus.textContent = 'Переподключение...';
+                this.connectionStatus.style.background = 'rgba(255, 71, 87, 0.1)';
+                this.connectionStatus.style.color = '#ff4757';
+                
+                if (this.reconnectAttempts < this.MAX_RECONNECT_ATTEMPTS) {
+                    this.reconnectAttempts++;
+                    setTimeout(() => this.initializeWebSocket(), 2000 * this.reconnectAttempts);
+                } else {
+                    this.connectionStatus.textContent = 'Ошибка подключения';
+                }
+            }
+
+            handleMessage(event) {
+                const data = JSON.parse(event.data);
+                if (data.type === 'viewerCount') {
+                    this.updateViewerCount(data.count);
+                }
+            }
+
+            updateViewerCount(count) {
+                const viewerCount = document.getElementById('viewerCount');
+                const word = count === 1 ? 'зритель' : count < 5 ? 'зрителя' : 'зрителей';
+                viewerCount.textContent = `${count} ${word} онлайн`;
+            }
+        }
+
+        // Initialize video sync
+        const videoSync = new VideoSync();
+
+        function toggleTheme() {
+            document.body.classList.toggle('light-theme');
+            const icon = document.querySelector('.theme-toggle i');
+            if (document.body.classList.contains('light-theme')) {
+                icon.classList.remove('bi-moon-fill');
+                icon.classList.add('bi-sun-fill');
+            } else {
+                icon.classList.remove('bi-sun-fill');
+                icon.classList.add('bi-moon-fill');
+            }
+        }
+    </script>
+
+</body></html>
